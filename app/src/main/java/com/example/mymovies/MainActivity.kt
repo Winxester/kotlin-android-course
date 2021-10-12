@@ -1,11 +1,7 @@
 package com.example.mymovies
 
-import android.app.Activity
-import android.content.Context
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.recyclerview.widget.RecyclerView
 import com.example.mymovies.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
