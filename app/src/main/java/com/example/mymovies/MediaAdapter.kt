@@ -5,10 +5,14 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mymovies.MediaItem.*
 import com.example.mymovies.databinding.ViewMediaItemBinding
+import kotlin.properties.Delegates
 
-class MediaAdapter(private val mediaItems: List<MediaItem>, private val listener: (MediaItem) -> Unit) :
+class MediaAdapter(mediaItems: List<MediaItem> = emptyList(), private val listener: (MediaItem) -> Unit) :
     RecyclerView.Adapter<MediaAdapter.ViewHolder>() {
 
+    var mediaItems: List<MediaItem> by Delegates.observable(mediaItems) { _, _, _ ->
+        notifyDataSetChanged()
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = parent.inflate(R.layout.view_media_item)
@@ -18,7 +22,7 @@ class MediaAdapter(private val mediaItems: List<MediaItem>, private val listener
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = mediaItems[position]
         holder.bind(item)
-        holder.itemView.setOnClickListener {listener(item)}
+        holder.itemView.setOnClickListener { listener(item) }
     }
 
     override fun getItemCount(): Int = mediaItems.size
