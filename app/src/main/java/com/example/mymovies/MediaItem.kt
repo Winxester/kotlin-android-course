@@ -1,0 +1,4 @@
+package com.example.mymovies
+
+data class MediaItem (val title: String, val url: String) {
+}
