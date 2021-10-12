@@ -8,8 +8,10 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.mymovies.MediaItem.*
+import com.example.mymovies.databinding.ViewMediaItemBinding
 
-class MediaAdapter(private val mediaItems: List<MediaItem>) : RecyclerView.Adapter<MediaAdapter.ViewHolder>() {
+class MediaAdapter(private val mediaItems: List<MediaItem>) :
+    RecyclerView.Adapter<MediaAdapter.ViewHolder>() {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -29,20 +31,18 @@ class MediaAdapter(private val mediaItems: List<MediaItem>) : RecyclerView.Adapt
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
-        private val title : TextView = view.findViewById(R.id.mediaTitle)
-        private val thumb : ImageView = view.findViewById(R.id.mediaThumb)
-        private val videoIndicator :ImageView = view.findViewById(R.id.mediaVideoIndicator)
+        private val binding = ViewMediaItemBinding.bind(view)
 
         fun bind(mediaItem: MediaItem) {
-            title.text = mediaItem.title
-            thumb.loadUrl(mediaItem.url)
+            binding.mediaTitle.text = mediaItem.title
+            binding.mediaThumb.loadUrl(mediaItem.url)
 
-            videoIndicator.visibility = when (mediaItem.type) {
+            binding.mediaVideoIndicator.visibility = when (mediaItem.type) {
                 Type.PHOTO -> View.GONE
                 Type.VIDEO -> View.VISIBLE
             }
 
-            itemView.setOnClickListener {
+            binding.root.setOnClickListener {
 
             }
 

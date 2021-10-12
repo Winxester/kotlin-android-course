@@ -13,7 +13,7 @@ class MainActivity : AppCompatActivity() {
         binding.recycler.adapter = MediaAdapter(getItems())
 
 
-        startActivity<MainActivity>()
+
 
 
 
