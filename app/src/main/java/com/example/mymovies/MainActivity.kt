@@ -1,5 +1,8 @@
 package com.example.mymovies
 
+import android.app.Activity
+import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.RecyclerView
@@ -14,10 +17,12 @@ class MainActivity : AppCompatActivity() {
         binding.recycler.adapter = MediaAdapter(getItems())
 
 
-
+        startActivity<MainActivity>()
 
 
 
     }
+
+
 
 }

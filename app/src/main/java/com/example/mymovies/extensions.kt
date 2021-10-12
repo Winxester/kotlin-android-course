@@ -1,5 +1,8 @@
 package com.example.mymovies
 
+import android.app.Activity
+import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,4 +20,8 @@ fun ViewGroup.inflate(@LayoutRes layoutRes: Int): View {
 
 fun ImageView.loadUrl(url: String) {
     Glide.with(this).load(url).into(this)
+}
+
+inline fun <reified T: Activity> Context.startActivity() {
+    val intent = Intent(this, T::class.java)
 }
