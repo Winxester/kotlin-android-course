@@ -8,7 +8,9 @@ import com.example.mymovies.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
-    private val adapter: MediaAdapter by lazy { MediaAdapter(MediaProvider.getItems()) { toast(it.title) } }
+    private val adapter: MediaAdapter by lazy {
+        MediaAdapter(MediaProvider.getItems()) { toast(it.title) }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
