@@ -7,27 +7,21 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.Filter
 import android.widget.ProgressBar
+import androidx.lifecycle.lifecycleScope
 import com.example.mymovies.databinding.ActivityMainBinding
 import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
 
-class MainActivity : AppCompatActivity(), CoroutineScope {
+class MainActivity : AppCompatActivity() {
 
     private val adapter = MediaAdapter { toast(it.title) }
 
     private lateinit var progress: ProgressBar
 
-    override val coroutineContext: CoroutineContext
-        get() = Dispatchers.Main + job
-
-    private lateinit var job: Job
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        job = SupervisorJob()
 
         binding.recycler.adapter = adapter
         progress = binding.progress
@@ -37,7 +31,7 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
     }
 
     private fun updateItems(filter: Int = R.id.filter_all) {
-        launch {
+        lifecycleScope.launch {
             progress.visibility = View.VISIBLE
             adapter.mediaItems = withContext(Dispatchers.IO) { getFilteredItems(filter) }
             progress.visibility = View.GONE
@@ -66,7 +60,6 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
     }
 
     override fun onDestroy() {
-        job.cancel()
         super.onDestroy()
     }
 }
