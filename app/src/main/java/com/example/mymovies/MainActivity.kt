@@ -5,12 +5,10 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.Filter
 import android.widget.ProgressBar
 import androidx.lifecycle.lifecycleScope
 import com.example.mymovies.databinding.ActivityMainBinding
 import kotlinx.coroutines.*
-import kotlin.coroutines.CoroutineContext
 
 class MainActivity : AppCompatActivity() {
 
@@ -59,7 +57,4 @@ class MainActivity : AppCompatActivity() {
         return true
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-    }
 }
