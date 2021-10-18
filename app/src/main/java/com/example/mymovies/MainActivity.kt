@@ -2,11 +2,13 @@ package com.example.mymovies
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.MediaStore
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.ProgressBar
 import androidx.lifecycle.lifecycleScope
+import com.example.mymovies.MediaItem.*
 import com.example.mymovies.databinding.ActivityMainBinding
 import kotlinx.coroutines.*
 
@@ -30,7 +32,7 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    private fun updateItems(filter: Int = R.id.filter_all) {
+    private fun updateItems(filter: Filter = Filter.None) {
         lifecycleScope.launch {
             progress.visibility = View.VISIBLE
             adapter.mediaItems = withContext(Dispatchers.IO) { getFilteredItems(filter) }
@@ -38,13 +40,11 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun getFilteredItems(filter: Int): List<MediaItem> {
+    private fun getFilteredItems(filter: Filter): List<MediaItem> {
         return MediaProvider.getItems().let { items ->
             when (filter) {
-                R.id.filter_all -> items
-                R.id.filter_photos -> items.filter { it.type == MediaItem.Type.PHOTO }
-                R.id.filter_videos -> items.filter { it.type == MediaItem.Type.VIDEO }
-                else -> emptyList()
+                Filter.None -> items
+                is Filter.ByType -> items.filter { it.type == filter.type }
             }
         }
     }
@@ -55,7 +55,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        updateItems(item.itemId)
+        val filter = when (item.itemId) {
+            R.id.filter_photos -> Filter.ByType(Type.PHOTO)
+            R.id.filter_videos -> Filter.ByType(Type.VIDEO)
+            else -> Filter.None
+        }
+
+        updateItems(filter)
         return true
     }
 
