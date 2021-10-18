@@ -7,7 +7,9 @@ import com.example.mymovies.MediaItem.*
 import com.example.mymovies.databinding.ViewMediaItemBinding
 import kotlin.properties.Delegates
 
-class MediaAdapter(mediaItems: List<MediaItem> = emptyList(), private val listener: (MediaItem) -> Unit) :
+private typealias Listener = (MediaItem) -> Unit
+
+class MediaAdapter(mediaItems: List<MediaItem> = emptyList(), private val listener: Listener) :
     RecyclerView.Adapter<MediaAdapter.ViewHolder>() {
 
     var mediaItems: List<MediaItem> by Delegates.observable(mediaItems) { _, _, _ ->
