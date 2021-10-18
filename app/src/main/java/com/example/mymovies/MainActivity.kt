@@ -13,7 +13,7 @@ import kotlinx.coroutines.*
 class MainActivity : AppCompatActivity() {
 
     private val adapter = MediaAdapter {
-        startActivity<DetailActivity>()
+        startActivity<DetailActivity>(DetailActivity.EXTRA_ID to it.id)
     }
 
     private lateinit var progress: ProgressBar

@@ -15,7 +15,9 @@ class DetailActivity : AppCompatActivity() {
         val binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        //intent.getIntExtra(EXTRA_ID,)
 
+        // Ver vídeo para realizar ejercicio
 
     }
 }

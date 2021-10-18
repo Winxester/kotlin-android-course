@@ -27,8 +27,7 @@ fun ImageView.loadUrl(url: String) {
 }
 
 inline fun <reified T: Activity> Context.startActivity(vararg pairs: Pair<String, Any?>) {
-    val intent = Intent(this, T::class.java).apply {
-        putExtras(bundleOf(*pairs))
-    }
+    val intent = Intent(this, T::class.java)
+        .apply { putExtras(bundleOf(*pairs)) }
     startActivity(intent)
 }
